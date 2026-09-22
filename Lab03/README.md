@@ -37,7 +37,7 @@ k6 суусан байх ёстой.
 Энд 20 VUs нь системийн хамгийн их даах ачааллыг илэрхийлэхгүй. Харин энэхүү лабораторийн performance болон reliability туршилтад ашигласан хэвийн ачааллын түвшин юм.
 
 Туршилтыг k6 v2.2.0 хувилбарыг ашиглан гүйцэтгэсэн.
-k6-ийн хувилбар шалгасан бүрэн output-ийг `results/k6-version.txt` файлаас харж болно.
+k6-ийн хувилбар шалгасан бүрэн output-ийг [`results/k6-version.txt`](results/k6-version.txt)файлаас харж болно.
     
 ---
 
@@ -170,6 +170,8 @@ Scenario бүрийг Lecture 3-ын дараах 6 хэсгээр тодорх�
 | Performance  | `/cart/add` response latency | **p95 < 50 ms**  | 20 VU тогтмол ачаалал, 1 минут       |
 | Reliability  | `/pay` error rate            | **< 8%**         | 20 VU, 1 минут                       |
 | Availability | Нийт хүсэлтийн success rate  | **≥ 90%**        | 20 VU, 2 минут, 10 секундийн зогсолт |
+| Supporting Performance | `/report` p95 latency  | **p95 < 450 ms**        | 20 VU, 1 минут |
+
 
 ### 7.1 Performance SLO
 
@@ -202,4 +204,83 @@ Availability SLO нь **90%** байгаа тул 2 минутын туршил�
 Иймээс энэхүү SLO-ийн дагуу 2 минутын хугацаанд **12 секунд хүртэлх хугацааг availability-ийн error budget** гэж үзэж болно.
 
 Гэхдээ k6 дээр availability-г хүсэлтийн амжилтын хувиар хэмжих тул дараагийн chaos туршилтаар хүсэлтийн тоонд суурилсан availability-г мөн тооцно. Сервер 10 секунд зогссон хугацаанд хэдэн хүсэлт амжилтгүй болсноос шалтгаалан хүсэлтээр тооцсон үр дүн нь 12 секундын хугацааны error budget-тэй яг адил гарахгүй байж болно.
+
+###7.5 Supporting Performance SLO — /report
+
+/report endpoint-ийн response time-ийн p95 нь 450 ms-ээс бага байх шаардлагатай гэж үзсэн.
+
+Босго сонгосон шалтгаан: /report endpoint дээр 200–400 ms-ийн зориудаар үүсгэсэн delay байгаа тул уг endpoint-ийн үндсэн delay-ийн хүрээнд ажиллахын зэрэгцээ бага хэмжээний хэлбэлзлийг зөвшөөрөх зорилгоор 450 ms-ийн босгыг сонгосон.
+
+PASS туршилтын үед /report endpoint-ийн бодит p95 нь 390.58 ms байсан. Энэ нь 450 ms-ийн SLO босгоос бага тул тухайн туршилтын үед /report endpoint-ийн Performance SLO хангагдсан.
+
+## 8. PASS Test
+
+PASS тестийг 20 VU ачаалалтайгаар 1 минут ажиллуулж, өмнө тодорхойлсон SLO threshold-үүдийг k6 ашиглан шалгасан.
+
+Ашигласан команд:
+
+```bash
+k6 run slo-test.js 2>&1 | tee results/pass.txt
+```
+
+### Configuration
+
+| Үзүүлэлт    | Утга                    |
+| ----------- | ----------------------- |
+| VUs         | 20                      |
+| Duration    | 1 minute                |
+| Test Target | `http://localhost:3000` |
+
+### Actual Threshold Results
+
+Туршилтын үр дүнд бүх тодорхойлсон threshold амжилттай биелсэн.
+
+```text
+checks
+✓ 'rate>0.90' rate=98.24%
+
+http_req_duration{name:cart}
+✓ 'p(95)<50' p(95)=2.46ms
+
+http_req_duration{name:report}
+✓ 'p(95)<450' p(95)=390.58ms
+
+http_req_failed{name:pay}
+✓ 'rate<0.08' rate=5.27%
+```
+
+### Summary
+
+| Metric         |    Actual | Threshold | Result   |
+| -------------- | --------: | --------: | -------- |
+| Checks         |    98.24% |     ≥ 90% | **PASS** |
+| Cart p95       |   2.46 ms |   < 50 ms | **PASS** |
+| Report p95     | 390.58 ms |  < 450 ms | **PASS** |
+| Pay error rate |     5.27% |      < 8% | **PASS** |
+
+### Detailed Results
+
+Туршилтын хугацаанд нийт **929 iteration**, **2787 HTTP request** гүйцэтгэсэн. Нийт HTTP request-ийн 49 нь амжилтгүй болсон бөгөөд энэ нь нийт request-ийн **1.75%** байна.
+
+`/pay` endpoint-ийн хувьд 929 хүсэлтээс 49 нь амжилтгүй болсон тул тухайн endpoint-ийн error rate **5.27%** байв. Энэ нь уг endpoint дээр зориудаар оруулсан ойролцоогоор 5%-ийн failure probability-тэй нийцэж, сонгосон **<8%** reliability SLO-г хангаж байна.
+
+`/cart/add` endpoint-ийн p95 latency **2.46 ms** байсан нь **50 ms**-ийн threshold-ээс бага байна. Харин `/report` endpoint-ийн p95 latency **390.58 ms** байсан бөгөөд **450 ms**-ийн threshold-ийг мөн хангаж байна.
+
+Нийт checks-ийн амжилтын хувь **98.24%** байсан нь availability-д тодорхойлсон **90%-ийн** босгоос өндөр байна.
+
+### k6 Output Summary
+
+```text
+checks_total.......: 2787
+checks_succeeded...: 98.24%  2738 out of 2787
+checks_failed......: 1.75%  49 out of 2787
+
+http_reqs............: 2787
+http_req_failed......: 1.75%  49 out of 2787
+
+iterations...........: 929
+vus_max..............: 20
+```
+
+**Result output:** [`results/pass.txt`](results/pass.txt)
 
