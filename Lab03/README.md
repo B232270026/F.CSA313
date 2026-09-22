@@ -100,7 +100,7 @@ await sleep(200 + Math.random() * 200);
 
 Энэ endpoint-ийг нэмэлт **Performance scenario**-д ашиглаж, response latency-ийн `p95` утгыг хэмжинэ.
 
-## 4.3 `/pay`
+## 5.3 `/pay`
 
 `/pay` endpoint нь хэрэглэгчийн төлбөр хийх үйлдлийг төлөөлнө. Reliability scenario-д системийн failure rate-ийг хэмжихийн тулд хүсэлтийн ойролцоогоор 5%-д `HTTP 500` алдаа буцаахаар тохируулсан.
 
@@ -159,7 +159,7 @@ Scenario бүрийг Lecture 3-ын дараах 6 хэсгээр тодорх�
 | **Орчны төлөв**        | Node.js + Express API, localhost орчинд k6-ийн 20 VU, 2 минут ажиллана.                  |
 | **Гадаад өдөөлт**      | k6 тест үргэлжилж байх үед серверийг Ctrl+C-ээр зогсоож, 10 секундын дараа дахин ажиллуулна. |
 | **Шаардлагатай хариу** | Сервер дахин ассаны дараа API хүсэлтүүдийг амжилттай боловсруулж эхэлнэ.                     |
-| **Хэмжүүр**            | Нийт хүсэлтийн success rate ≥ 90%, серверийн recovery time ≤ 12 секунд байна.                |
+| **Хэмжүүр**            | Нийт хүсэлтийн success rate ≥ 90%    |
 
 ## 7. SLO тодорхойлолт
 
@@ -223,7 +223,7 @@ PASS тестийг 20 VU ачаалалтайгаар 1 минут ажиллу
 k6 run slo-test.js 2>&1 | tee results/pass.txt
 ```
 
-### Configuration
+### 8.1 Configuration
 
 | Үзүүлэлт    | Утга                    |
 | ----------- | ----------------------- |
@@ -231,7 +231,7 @@ k6 run slo-test.js 2>&1 | tee results/pass.txt
 | Duration    | 1 minute                |
 | Test Target | `http://localhost:3000` |
 
-### Actual Threshold Results
+### 8.2 Actual Threshold Results
 
 Туршилтын үр дүнд бүх тодорхойлсон threshold амжилттай биелсэн.
 
@@ -258,7 +258,7 @@ http_req_failed{name:pay}
 | Report p95     | 390.58 ms |  < 450 ms | **PASS** |
 | Pay error rate |     5.27% |      < 8% | **PASS** |
 
-### Detailed Results
+### 8.3 Detailed Results
 
 Туршилтын хугацаанд нийт **929 iteration**, **2787 HTTP request** гүйцэтгэсэн. Нийт HTTP request-ийн 49 нь амжилтгүй болсон бөгөөд энэ нь нийт request-ийн **1.75%** байна.
 
@@ -290,7 +290,7 @@ vus_max..............: 20
 
 Энэ туршилтаар системийн хүртээмжийг серверийн түр тасалдал болон сэргэлтийн үед шалгав. k6 тестийг 20 VU, 2 минутын хугацаатай ажиллуулж, туршилтын явцад серверийг 10 секундээр зогсоож, дараа нь дахин асаасан. Ингэснээр серверийн outage үед request болон check-ийн амжилтын хувь хэрхэн өөрчлөгдөхийг ажиглав.
 
-### 9.2 Туршилтын нөхцөл
+### 9.2 Configuration
 
 | Үзүүлэлт                  | Утга                    |
 | ------------------------- | ----------------------- |
@@ -313,7 +313,7 @@ k6 run slo-test.js 2>&1 | tee ../results/chaos.txt
 
 Туршилтын явцад серверийг `Ctrl+C` ашиглан зогсоож, 10 секунд хүлээсний дараа дахин асаасан.
 
-### 9.3 Туршилтын үр дүн
+### 9.3 Actual Threshold Results
 
 ```text
 checks_total.......: 5691
@@ -339,6 +339,8 @@ running (2m00.9s), 00/20 VUs
 default ✓ [100%] 20 VUs 2m0s
 ```
 
+### Summary
+
 Threshold-ийн үр дүн:
 
 | Metric                  | Threshold |    Actual | Үр дүн   |
@@ -348,7 +350,7 @@ Threshold-ийн үр дүн:
 | `/report` p95           |  < 450 ms | 390.35 ms | **PASS** |
 | `/pay` error rate       |      < 8% |    16.92% | **FAIL** |
 
-### 8.4 Availability-ийн тооцоолол
+### 9.4 Availability-ийн тооцоолол
 
 Энэ тестэд нэг request бүрт нэг check байгаа тул request-based availability-ийг `checks_succeeded / checks_total` харьцаагаар тооцож болно.
 
@@ -369,7 +371,7 @@ Actual:    86.27%
 Result:    FAIL
 ```
 
-### 8.5 Error Budget-тэй харьцуулалт
+### 9.5 Error Budget-тэй харьцуулалт
 
 2 минутын хугацаанд Availability SLO нь 90% тул зөвшөөрөгдөх downtime буюу time-based error budget:
 
@@ -392,7 +394,7 @@ Error budget:        12 секунд
 
 Иймээс **time-based error budget болон request-based availability нь ижил хэмжүүр биш** бөгөөд outage-ийн нөлөөллийг өөр өөрөөр харуулж байна.
 
-### 8.6 `/pay` Reliability-ийн үр дүн
+### 9.6 `/pay` Reliability-ийн үр дүн
 
 `/pay` endpoint-ийн reliability SLO нь:
 
@@ -423,7 +425,7 @@ Result:    FAIL
 
 Энэ өсөлтөд серверийн 10 секундын outage-ийн үед `/pay` request-үүд амжилтгүй болсон нь нөлөөлсөн. Иймээс энэ үр дүнг зөвхөн `/pay` endpoint-ийн хэвийн үеийн reliability-ийн үзүүлэлт гэж тайлбарлахгүй. Reliability-г систем хэвийн ажиллаж байх үеийн `/pay` endpoint-ийн failure rate-ээр, харин Availability-г системийн outage болон recovery үеийн нийт хүртээмжээр тусад нь хэмжих нь тохиромжтой.
 
-### 8.7 Performance-ийн үр дүн
+### 9.7 Performance-ийн үр дүн
 
 Chaos test-ийн үед `/cart/add` болон `/report` endpoint-ийн performance threshold хэвээрээ PASS гарсан.
 
@@ -444,4 +446,129 @@ Result = PASS
 ```
 
 Сервер дахин ажилласны дараа амжилттай боловсруулагдсан request-үүдийн response time нь тодорхойлсон performance SLO-уудын дотор хэвээр байсан.
+
+## 10. FAIL Test
+### 10.1  Туршилт
+Threshold механизм зөв ажиллаж байгааг шалгахын тулд зориудаар FAIL үүсгэсэн.
+
+[`slo-test-fail.js`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/scripts/slo-test-fail.js) нь үндсэн [`slo-test.js`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/scripts/slo-test.js)-тэй ижил test бөгөөд зөвхөн `/report` endpoint-ийн performance threshold-ийг өөрчилсөн.
+
+Үндсэн SLO:
+
+```text
+p(95)<450
+```
+
+FAIL хувилбар:
+
+```text
+p(95)<100
+```
+
+`/report` endpoint нь сервер талдаа 200–400ms орчим artificial delay үүсгэдэг тул 100ms-ийн threshold-ийг зориудаар хангах боломжгүй нөхцөл бүрдүүлсэн.
+
+---
+
+Туршилтыг дараах командаар ажиллуулсан.
+
+```bash
+k6 run slo-test-fail.js 2>&1 | tee ../results/fail.txt
+```
+
+### 10.2 Configuration
+
+| Үзүүлэлт    | Утга                    |
+| ----------- | ----------------------- |
+| VUs         | 20                      |
+| Duration    | 1 minute                |
+| Test Target | `http://localhost:3000` |
+
+### 10.3 Actual Threshold Results
+
+Туршилтын үр дүнд `/report` threshold FAIL болсон.
+
+```text
+http_req_duration{name:report}
+
+✗ 'p(95)<100' p(95)=393.93ms
+```
+
+`/report` endpoint-ийн бодит p95 latency:
+
+```text
+393.93ms
+```
+
+Threshold:
+
+```text
+< 100ms
+```
+
+Иймээс:
+
+```text
+393.93ms > 100ms
+```
+
+болсон тул threshold зөрчигдсөн.
+
+Бусад threshold энэ test-ийн үед PASS болсон:
+
+```text
+checks
+✓ 'rate>0.90' rate=98.03%
+
+http_req_duration{name:cart}
+✓ 'p(95)<50' p(95)=2.65ms
+
+http_req_failed{name:pay}
+✓ 'rate<0.08' rate=5.90%
+```
+
+### Summary
+
+| Metric         |   Actual | Threshold | Result   |
+| -------------- | -------: | --------: | -------- |
+| Report p95     | 393.93ms |   < 100ms | **FAIL** |
+| Checks         |   98.03% |     ≥ 90% | **PASS** |
+| Cart p95       |   2.65ms |    < 50ms | **PASS** |
+| Pay error rate |    5.90% |      < 8% | **PASS** |
+
+k6-ийн threshold failure message:
+
+```text
+thresholds on metrics 'http_req_duration{name:report}' have been crossed
+```
+
+Энэ нь `/report` endpoint-ийн `http_req_duration` threshold зөрчигдсөнийг баталж байна.
+
+**Бүрэн output:** [`results/fail.txt`](results/fail.txt)
+
+---
+
+## 11. k6 Exit Code
+
+FAIL test-ийн дараа k6-ийн process exit code-ийг шалгасан.
+
+Linux/macOS орчинд pipeline ашиглаж байгаа тул k6-ийн exit code-ийг алдахгүй авахын тулд `pipefail` ашигласан:
+
+```bash
+set -o pipefail
+k6 run slo-test-fail.js 2>&1 | tee ../results/fail.txt
+echo "exit=$?"
+```
+
+Actual result:
+
+```text
+exit=99
+```
+
+Ингэснээр threshold зөрчигдсөн үед k6 нь зөвхөн terminal дээр FAIL гэж харуулахгүй, мөн **non-zero exit code (`99`)** буцааж байгааг шалгасан.
+
+CI/CD pipeline нь энэхүү non-zero exit code-ийг ашиглан threshold failure гарсан үед build эсвэл pipeline-ийг failed төлөвт оруулах боломжтой.
+
+---
+
 
