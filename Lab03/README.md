@@ -447,6 +447,8 @@ Result = PASS
 
 Сервер дахин ажилласны дараа амжилттай боловсруулагдсан request-үүдийн response time нь тодорхойлсон performance SLO-уудын дотор хэвээр байсан.
 
+**Result output:** [`results/chaos.txt`](results/chaos.txt)
+
 ## 10. FAIL Test
 ### 10.1  Туршилт
 Threshold механизм зөв ажиллаж байгааг шалгахын тулд зориудаар FAIL үүсгэсэн.
@@ -543,7 +545,7 @@ thresholds on metrics 'http_req_duration{name:report}' have been crossed
 
 Энэ нь `/report` endpoint-ийн `http_req_duration` threshold зөрчигдсөнийг баталж байна.
 
-**Бүрэн output:** [`results/fail.txt`](results/fail.txt)
+**Result output:** [`results/fail.txt`](results/fail.txt)
 
 ---
 
@@ -580,7 +582,7 @@ CI/CD pipeline нь энэхүү non-zero exit code-ийг ашиглан thresh
 | [`results/pass.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/pass.txt)             | Хэвийн нөхцөл дэх PASS SLO test-ийн бүрэн k6 output                  |
 | [`results/chaos.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/chaos.txt)           | Server outage/recovery experiment-ийн бүрэн k6 output                |
 | [`results/fail.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/fail.txt)             | `/report` threshold-ийг зориудаар зөрчсөн FAIL test-ийн бүрэн output |
-| [`results/k6-version.txt`](hhttps://github.com/B232270026/F.CSA313/blob/main/Lab03/results/k6-version.txt) | Ашигласан k6 version-ийн output                                      |
+| [`results/k6-version.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/k6-version.txt) | Ашигласан k6 version-ийн output                                      |
 
 Бүх туршилтын evidence файлыг:
 
@@ -599,6 +601,7 @@ Repository-д commit хийх шаардлагагүй generated болон depe
 ```gitignore
 node_modules/
 .DS_Store
+Lab03/.gitignore
 ```
 
 гэж тохируулсан.
