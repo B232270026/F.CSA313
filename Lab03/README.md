@@ -601,7 +601,7 @@ Repository-д commit хийх шаардлагагүй generated болон depe
 ```gitignore
 node_modules/
 .DS_Store
-Lab03/.gitignore
+Lab03/.idea
 ```
 
 гэж тохируулсан.
