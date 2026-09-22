@@ -571,4 +571,44 @@ CI/CD pipeline нь энэхүү non-zero exit code-ийг ашиглан thresh
 
 ---
 
+## 12. Evidence Files
+
+Лабораторийн туршилтуудын бүрэн output-уудыг `results/` folder дотор тусад нь хадгалсан.
+
+| File                                                                                                                    | Description                                                          |
+| ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [`results/pass.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/pass.txt)             | Хэвийн нөхцөл дэх PASS SLO test-ийн бүрэн k6 output                  |
+| [`results/chaos.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/chaos.txt)           | Server outage/recovery experiment-ийн бүрэн k6 output                |
+| [`results/fail.txt`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results/fail.txt)             | `/report` threshold-ийг зориудаар зөрчсөн FAIL test-ийн бүрэн output |
+| [`results/k6-version.txt`](hhttps://github.com/B232270026/F.CSA313/blob/main/Lab03/results/k6-version.txt) | Ашигласан k6 version-ийн output                                      |
+
+Бүх туршилтын evidence файлыг:
+
+[`results/`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/results)
+
+folder дотор хадгалсан.
+
+---
+
+## 13. .gitignore
+
+Repository-д commit хийх шаардлагагүй generated болон dependency файлуудыг `.gitignore` ашиглан хассан.
+
+[` .gitignore`](https://github.com/B232270026/F.CSA313/blob/main/Lab03/.gitignore) файлд:
+
+```gitignore
+node_modules/
+.DS_Store
+```
+
+гэж тохируулсан.
+
+Ингэснээр `node_modules/` repository-д commit хийгдээгүй.
+
+---
+
+## 14. Дүгнэлт
+
+Энэ лабораторийн ажлаар Quality Scenario ойлголтыг ашиглан өөрийн локал API дээр Performance, Reliability, Availability гэсэн гурван төрлийн чанарын scenario-г тодорхойлсон. Scenario бүрийг Overview, System state, Environment state, External stimulus, Required response, Measure гэсэн зургаан хэсгээр тодорхойлж, эдгээрээс хэмжигдэхүйц SLI болон SLO-уудыг гаргасан. Дараагийн алхамд тодорхойлсон SLO-уудыг k6 threshold болгон хэрэгжүүлж, тестийн үр дүнгээр автоматаар шалгасан. Хэвийн нөхцөлд `/cart/add` endpoint-ийн p95 latency 2.46ms, `/report` endpoint-ийн p95 latency 390.58ms, `/pay` endpoint-ийн error rate 5.27% гарч, бүх үндсэн threshold PASS болсон. Дараа нь серверийг ойролцоогоор 10 секунд зориудаар зогсоож chaos experiment хийхэд request-based availability 86.27% болж, 90%-ийн Availability SLO хангагдаагүй. Энэ туршилтаар 2 минутын хугацаанд тооцсон 12 секундын time-based error budget болон request-based availability нь ижил хэмжүүр биш болохыг бодитоор харуулсан. Мөн server outage-ийн үед `/pay` endpoint-ийн error rate 16.92% болж өссөн нь outage нь reliability metric-д мөн нөлөөлж болохыг харуулсан. Харин сервер дахин ажилласны дараах амжилттай request-үүдийн performance хэмжүүрүүд болох `/cart/add` p95 2.74ms болон `/report` p95 390.35ms нь өөрсдийн threshold дотор хэвээр байсан. Эцэст нь `/report` threshold-ийг p(95)<100ms болгон зориудаар хатууруулж FAIL test ажиллуулахад p95 нь 393.93ms гарч, threshold зөрчигдсөн бөгөөд k6 exit code 99 буцаасан. Ингэснээр Quality Scenario → SLI → SLO → k6 Threshold → Test → Evidence гэсэн дарааллыг бодит туршилтаар хэрэгжүүлж, threshold failure-ийг CI/CD pipeline-д ашиглах үндсэн зарчмыг шалгасан.
+
 
