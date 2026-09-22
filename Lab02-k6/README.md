@@ -92,7 +92,6 @@ Error rate — нийт HTTP request-ийн хэдэн хувь нь алдаа�
 | Throughput            | 7.210176 req/s |
 | Error rate            |          0.00% |
 | Completed iterations  |            220 |
-p(95)
 
 ### 6.3 30 VU Test
 | Metric                |           Value |
