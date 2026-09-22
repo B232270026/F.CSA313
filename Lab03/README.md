@@ -284,3 +284,164 @@ vus_max..............: 20
 
 **Result output:** [`results/pass.txt`](results/pass.txt)
 
+## 9. Mini Chaos Test
+
+### 9.1 Туршилтын зорилго
+
+Энэ туршилтаар системийн хүртээмжийг серверийн түр тасалдал болон сэргэлтийн үед шалгав. k6 тестийг 20 VU, 2 минутын хугацаатай ажиллуулж, туршилтын явцад серверийг 10 секундээр зогсоож, дараа нь дахин асаасан. Ингэснээр серверийн outage үед request болон check-ийн амжилтын хувь хэрхэн өөрчлөгдөхийг ажиглав.
+
+### 9.2 Туршилтын нөхцөл
+
+| Үзүүлэлт                  | Утга                    |
+| ------------------------- | ----------------------- |
+| Virtual Users             | 20 VU                   |
+| Test duration             | 2 минут                 |
+| Server outage             | 10 секунд               |
+| Target                    | `http://localhost:3000` |
+| `/cart/add`               | POST                    |
+| `/report`                 | GET                     |
+| `/pay`                    | POST                    |
+| Availability SLO          | `checks` rate > 90%     |
+| `/pay` Reliability SLO    | error rate < 8%         |
+| Availability Error Budget | 12 секунд               |
+
+Туршилтыг дараах командаар ажиллуулсан.
+
+```bash
+k6 run slo-test.js 2>&1 | tee ../results/chaos.txt
+```
+
+Туршилтын явцад серверийг `Ctrl+C` ашиглан зогсоож, 10 секунд хүлээсний дараа дахин асаасан.
+
+### 9.3 Туршилтын үр дүн
+
+```text
+checks_total.......: 5691
+checks_succeeded...: 86.27% 4910 out of 5691
+checks_failed......: 13.72% 781 out of 5691
+
+cart 200
+✓ 1669 / ✗ 228
+
+report 200
+✓ 1665 / ✗ 232
+
+pay 200
+✓ 1576 / ✗ 321
+
+http_req_failed................: 13.72% 781 out of 5691
+{ name:pay }...................: 16.92% 321 out of 1897
+
+http_reqs......................: 5691
+iterations.....................: 1897
+
+running (2m00.9s), 00/20 VUs
+default ✓ [100%] 20 VUs 2m0s
+```
+
+Threshold-ийн үр дүн:
+
+| Metric                  | Threshold |    Actual | Үр дүн   |
+| ----------------------- | --------: | --------: | -------- |
+| Availability (`checks`) |     > 90% |    86.27% | **FAIL** |
+| `/cart/add` p95         |   < 50 ms |   2.74 ms | **PASS** |
+| `/report` p95           |  < 450 ms | 390.35 ms | **PASS** |
+| `/pay` error rate       |      < 8% |    16.92% | **FAIL** |
+
+### 8.4 Availability-ийн тооцоолол
+
+Энэ тестэд нэг request бүрт нэг check байгаа тул request-based availability-ийг `checks_succeeded / checks_total` харьцаагаар тооцож болно.
+
+```text
+Availability
+= Successful checks / Total checks × 100
+
+= 4910 / 5691 × 100
+
+= 86.27%
+```
+
+Ингэснээр туршилтын үеийн request-based availability **86.27%** гарсан бөгөөд 90%-ийн SLO-оос доогуур байна.
+
+```text
+SLO:       > 90%
+Actual:    86.27%
+Result:    FAIL
+```
+
+### 8.5 Error Budget-тэй харьцуулалт
+
+2 минутын хугацаанд Availability SLO нь 90% тул зөвшөөрөгдөх downtime буюу time-based error budget:
+
+```text
+2 минут × 10%
+= 120 секунд × 0.10
+= 12 секунд
+```
+
+Туршилтаар серверийг **10 секунд** зогсоосон.
+
+```text
+Actual outage:       10 секунд
+Error budget:        12 секунд
+```
+
+Иймээс хугацаанд суурилсан тооцоогоор 10 секундийн outage нь 12 секундын error budget-ээс хэтрээгүй.
+
+Гэсэн хэдий ч k6-ийн `checks` metric нь хугацаагаар бус **request-ийн амжилтаар** availability-ийг хэмжиж байгаа. Сервер унтарсан 10 секундын хугацаанд олон request connection failure болсон тул request-based availability **86.27%** болж, 90%-ийн threshold-ийг давж чадаагүй.
+
+Иймээс **time-based error budget болон request-based availability нь ижил хэмжүүр биш** бөгөөд outage-ийн нөлөөллийг өөр өөрөөр харуулж байна.
+
+### 8.6 `/pay` Reliability-ийн үр дүн
+
+`/pay` endpoint-ийн reliability SLO нь:
+
+```text
+error rate < 8%
+```
+
+байхаар тодорхойлсон.
+
+Chaos test-ийн үед:
+
+```text
+/pay total requests = 1897
+/pay failed requests = 321
+
+Error rate
+= 321 / 1897 × 100
+= 16.92%
+```
+
+Тиймээс `/pay` endpoint-ийн error rate **16.92%** болж, 8%-ийн SLO-оос давсан.
+
+```text
+SLO:       < 8%
+Actual:    16.92%
+Result:    FAIL
+```
+
+Энэ өсөлтөд серверийн 10 секундын outage-ийн үед `/pay` request-үүд амжилтгүй болсон нь нөлөөлсөн. Иймээс энэ үр дүнг зөвхөн `/pay` endpoint-ийн хэвийн үеийн reliability-ийн үзүүлэлт гэж тайлбарлахгүй. Reliability-г систем хэвийн ажиллаж байх үеийн `/pay` endpoint-ийн failure rate-ээр, харин Availability-г системийн outage болон recovery үеийн нийт хүртээмжээр тусад нь хэмжих нь тохиромжтой.
+
+### 8.7 Performance-ийн үр дүн
+
+Chaos test-ийн үед `/cart/add` болон `/report` endpoint-ийн performance threshold хэвээрээ PASS гарсан.
+
+`/cart/add`:
+
+```text
+p(95) = 2.74 ms
+SLO    < 50 ms
+Result = PASS
+```
+
+`/report`:
+
+```text
+p(95) = 390.35 ms
+SLO    < 450 ms
+Result = PASS
+```
+
+Сервер дахин ажилласны дараа амжилттай боловсруулагдсан request-үүдийн response time нь тодорхойлсон performance SLO-уудын дотор хэвээр байсан.
+
