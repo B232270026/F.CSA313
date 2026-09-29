@@ -26,7 +26,7 @@
 [[1;34mINFO[m]  T E S T S
 [[1;34mINFO[m] -------------------------------------------------------
 [[1;34mINFO[m] Running mn.edu.must.sqat.[1mGradeCalculatorTest[m
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m28[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.124 s -- in mn.edu.must.sqat.[1mGradeCalculatorTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m28[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.272 s -- in mn.edu.must.sqat.[1mGradeCalculatorTest[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] Results:
 [[1;34mINFO[m] 
@@ -35,6 +35,6 @@
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.058 s
-[[1;34mINFO[m] Finished at: 2026-09-29T12:40:57+08:00
+[[1;34mINFO[m] Total time:  1.430 s
+[[1;34mINFO[m] Finished at: 2026-09-29T13:08:11+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
