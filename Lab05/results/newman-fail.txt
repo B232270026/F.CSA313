@@ -1,0 +1,124 @@
+newman
+
+Lab05 API Testing
+
+❏ TC01-Successful Registration
+↳ 01.Setup - Create active student
+  PUT http://localhost:3000/students/B231234567 [200 OK, 178B, 23ms]
+
+↳ 02.Setup - Create CS313 course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 3ms]
+
+↳ 03.Register eligible student
+  POST http://localhost:3000/registrations [201 Created, 202B, 2ms]
+  1. Status code is 201
+  ✓  Result is OK
+  ✓  Registration ID exists and is valid
+
+❏ TC02-Student Not Found
+↳ 01.Course setup Request
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 4ms]
+  ✓  Course setup returns HTTP 200
+  ✓  Course setup result is OK
+
+↳ 02. Register missing student  URL
+  POST http://localhost:3000/registrations [200 OK, 192B, 2ms]
+  ✓  Missing student returns HTTP 200
+  ✓  Missing student returns ERROR_NO_STUDENT
+
+❏ TC03-Inactive Student
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234570 [200 OK, 178B, 2ms]
+
+↳ 02.Course setup
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 1ms]
+
+↳ 03.Бүртгүүлэх
+  POST http://localhost:3000/registrations [200 OK, 198B, 2ms]
+  ✓  Inactive student returns HTTP 200
+  ✓  Inactive student returns ERROR_INACTIVE_STUDENT
+
+❏ TC04-Course Not FoundCourse Not Found
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234571 [200 OK, 178B, 2ms]
+
+↳ 02.Бүртгүүлэх
+  POST http://localhost:3000/registrations [200 OK, 191B, 1ms]
+  ✓  Missing course returns HTTP 200
+  ✓  Missing course returns ERROR_NO_COURSE
+
+❏ TC05 - Missing Prerequisites
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234572 [200 OK, 178B, 1ms]
+
+↳ 02.Course setup
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 2ms]
+
+↳ 03.Бүртгүүлэх
+  POST http://localhost:3000/registrations [200 OK, 215B, 2ms]
+  ✓  Missing prerequisites returns HTTP 200
+  ✓  Missing prerequisites returns expected error
+
+❏ TC06 - No Prerequisites
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234573 [200 OK, 178B, 2ms]
+
+↳ 02.Course setup
+  PUT http://localhost:3000/courses/CS314 [200 OK, 178B, 2ms]
+
+↳ 03.Бүртгүүлэх
+  POST http://localhost:3000/registrations [201 Created, 202B, 2ms]
+  ✓  No-prerequisite course returns HTTP 201
+  ✓  No-prerequisite course registration succeeds
+
+❏ TC07 - Multiple Errors
+↳ 01.Registration request
+  POST http://localhost:3000/registrations [200 OK, 192B, 2ms]
+  ✓  Multiple errors return HTTP 200
+  ✓  Student error has priority
+
+❏ TC08 - Missing studentID
+↳ Missing studentID
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 2ms]
+  ✓  Missing studentID returns HTTP 400
+  ✓  Missing studentID returns ERROR_BAD_REQUEST
+
+❏ TC09 - Missing courseID
+↳ Missing courseID
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 2ms]
+  ✓  Missing courseID returns HTTP 400
+  ✓  Missing courseID returns ERROR_BAD_REQUEST
+
+❏ TC10 - Malformed JSON
+↳ Буруу JSON format
+  POST http://localhost:3000/registrations [400 Bad Request, 199B, 2ms]
+  ✓  Malformed JSON returns HTTP 400
+  ✓  Malformed JSON returns ERROR_BAD_JSON
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              20 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              11 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               0 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              23 │               1 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 316ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 478B (approx)                          │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 3ms [min: 1ms, max: 23ms, s.d.: 4ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m  # [39m[31m failure        [39m[31m detail                                                               [39m
+[90m    [39m[90m                [39m[90m                                                                      [39m
+ 1.  AssertionError  Status code is 201                                                   
+                     expected response to have status code 200 but got 201                
+                     at assertion:0 in test-script                                        
+                     inside "TC01-Successful Registration / 03.Register eligible student" 
+exit=1

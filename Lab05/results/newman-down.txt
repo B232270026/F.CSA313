@@ -1,0 +1,352 @@
+newman
+
+Lab05 API Testing
+
+❏ TC01-Successful Registration
+↳ 01.Setup - Create active student
+  PUT http://localhost:3000/students/B231234567 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 02.Setup - Create CS313 course
+  PUT http://localhost:3000/courses/CS313 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 03.Register eligible student
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+  4. Status code is 201
+  5. Result is OK
+  6. Registration ID exists and is valid
+
+❏ TC02-Student Not Found
+↳ 01.Course setup Request
+  PUT http://localhost:3000/courses/CS313 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+  8. Course setup returns HTTP 200
+  9. Course setup result is OK
+
+↳ 02. Register missing student  URL
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 11. Missing student returns HTTP 200
+ 12. Missing student returns ERROR_NO_STUDENT
+
+❏ TC03-Inactive Student
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234570 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 02.Course setup
+  PUT http://localhost:3000/courses/CS313 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 03.Бүртгүүлэх
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 16. Inactive student returns HTTP 200
+ 17. Inactive student returns ERROR_INACTIVE_STUDENT
+
+❏ TC04-Course Not FoundCourse Not Found
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234571 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 02.Бүртгүүлэх
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 20. Missing course returns HTTP 200
+ 21. Missing course returns ERROR_NO_COURSE
+
+❏ TC05 - Missing Prerequisites
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234572 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 02.Course setup
+  PUT http://localhost:3000/courses/CS313 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 03.Бүртгүүлэх
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 25. Missing prerequisites returns HTTP 200
+ 26. Missing prerequisites returns expected error
+
+❏ TC06 - No Prerequisites
+↳ 01.Student setup
+  PUT http://localhost:3000/students/B231234573 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 02.Course setup
+  PUT http://localhost:3000/courses/CS314 [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ 03.Бүртгүүлэх
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 30. No-prerequisite course returns HTTP 201
+ 31. No-prerequisite course registration succeeds
+
+❏ TC07 - Multiple Errors
+↳ 01.Registration request
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 33. Multiple errors return HTTP 200
+ 34. Student error has priority
+
+❏ TC08 - Missing studentID
+↳ Missing studentID
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 36. Missing studentID returns HTTP 400
+ 37. Missing studentID returns ERROR_BAD_REQUEST
+
+❏ TC09 - Missing courseID
+↳ Missing courseID
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 39. Missing courseID returns HTTP 400
+ 40. Missing courseID returns ERROR_BAD_REQUEST
+
+❏ TC10 - Malformed JSON
+↳ Буруу JSON format
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 42. Malformed JSON returns HTTP 400
+ 43. Malformed JSON returns ERROR_BAD_JSON
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │       20 │       20 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │       11 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │       23 │       23 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 283ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 0B (approx)              │
+└───────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                                               [39m
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 01.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 02.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 03.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 04.  AssertionError  Status code is 201                                                   
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC01-Successful Registration / 03.Register eligible student" 
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 05.  JSONError       Result is OK                                                         
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC01-Successful Registration / 03.Register eligible student" 
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 06.  JSONError       Registration ID exists and is valid                                  
+                      "undefined" is not valid JSON                                        
+                      at assertion:2 in test-script                                        
+                      inside "TC01-Successful Registration / 03.Register eligible student" 
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 07.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 08.  AssertionError  Course setup returns HTTP 200                                        
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC02-Student Not Found / 01.Course setup Request"            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 09.  JSONError       Course setup result is OK                                            
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC02-Student Not Found / 01.Course setup Request"            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 10.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 11.  AssertionError  Missing student returns HTTP 200                                     
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC02-Student Not Found / 02. Register missing student  URL"  
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 12.  JSONError       Missing student returns ERROR_NO_STUDENT                             
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC02-Student Not Found / 02. Register missing student  URL"  
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 13.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 14.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 15.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 16.  AssertionError  Inactive student returns HTTP 200                                    
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC03-Inactive Student / 03.Бүртгүүлэх"                       
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 17.  JSONError       Inactive student returns ERROR_INACTIVE_STUDENT                      
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC03-Inactive Student / 03.Бүртгүүлэх"                       
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 18.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 19.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 20.  AssertionError  Missing course returns HTTP 200                                      
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC04-Course Not FoundCourse Not Found / 02.Бүртгүүлэх"       
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 21.  JSONError       Missing course returns ERROR_NO_COURSE                               
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC04-Course Not FoundCourse Not Found / 02.Бүртгүүлэх"       
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 22.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 23.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 24.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 25.  AssertionError  Missing prerequisites returns HTTP 200                               
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC05 - Missing Prerequisites / 03.Бүртгүүлэх"                
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 26.  JSONError       Missing prerequisites returns expected error                         
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC05 - Missing Prerequisites / 03.Бүртгүүлэх"                
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 27.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 28.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 29.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 30.  AssertionError  No-prerequisite course returns HTTP 201                              
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC06 - No Prerequisites / 03.Бүртгүүлэх"                     
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 31.  JSONError       No-prerequisite course registration succeeds                         
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC06 - No Prerequisites / 03.Бүртгүүлэх"                     
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 32.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 33.  AssertionError  Multiple errors return HTTP 200                                      
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC07 - Multiple Errors / 01.Registration request"            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 34.  JSONError       Student error has priority                                           
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC07 - Multiple Errors / 01.Registration request"            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 35.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 36.  AssertionError  Missing studentID returns HTTP 400                                   
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC08 - Missing studentID / Missing studentID"                
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 37.  JSONError       Missing studentID returns ERROR_BAD_REQUEST                          
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC08 - Missing studentID / Missing studentID"                
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 38.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 39.  AssertionError  Missing courseID returns HTTP 400                                    
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC09 - Missing courseID / Missing courseID"                  
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 40.  JSONError       Missing courseID returns ERROR_BAD_REQUEST                           
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC09 - Missing courseID / Missing courseID"                  
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 41.  Error                                                                                
+                      connect ECONNREFUSED 127.0.0.1:3000                                  
+                      at request                                                           
+                      inside ""                                                            
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 42.  AssertionError  Malformed JSON returns HTTP 400                                      
+                      expected PostmanResponse{ …(5) } to have property 'code'             
+                      at assertion:0 in test-script                                        
+                      inside "TC10 - Malformed JSON / Буруу JSON format"                   
+[90m     [39m[90m                [39m[90m                                                                      [39m
+ 43.  JSONError       Malformed JSON returns ERROR_BAD_JSON                                
+                      "undefined" is not valid JSON                                        
+                      at assertion:1 in test-script                                        
+                      inside "TC10 - Malformed JSON / Буруу JSON format"                   
+exit=1
