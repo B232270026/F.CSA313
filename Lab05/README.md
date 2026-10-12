@@ -263,28 +263,25 @@ echo "exit=$status" | tee -a results/newman-pass.txt
 Бодит үр дүн:
 ### 11.1. PASS — зөв oracle
 
-Үндсэн Collection-ийг Newman-аар ажиллуулж, API-ийн бүртгэлийн үйлдлийг 10 тестийн бүлгээр шалгасан.
-
-┌─────────────────────────┬─────────────────┬─────────────────┐
-│                         │        executed │          failed │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│              iterations │               1 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│                requests │              20 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│            test-scripts │              11 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│      prerequest-scripts │               0 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│              assertions │              23 │               0 │
-├─────────────────────────┴─────────────────┴─────────────────┤
-│ total run duration: 300ms                                   │
-├─────────────────────────────────────────────────────────────┤
-│ total data received: 478B (approx)                          │
-├─────────────────────────────────────────────────────────────┤
-│ average response time: 2ms [min: 1ms, max: 20ms, s.d.: 3ms] │
-└─────────────────────────────────────────────────────────────┘
-exit=0
+| Үзүүлэлт | Үр дүн |
+|---|---:|
+| Iterations executed | 1 |
+| Failed iterations | 0 |
+| Requests executed | 20 |
+| Failed requests | 0 |
+| Test scripts executed | 11 |
+| Failed test scripts | 0 |
+| Prerequest scripts executed | 0 |
+| Failed prerequest scripts | 0 |
+| Assertions executed | 23 |
+| Failed assertions | 0 |
+| Total run duration | 300 ms |
+| Total data received | 478 B |
+| Average response time | 2 ms |
+| Minimum response time | 1 ms |
+| Maximum response time | 20 ms |
+| Standard deviation | 3 ms |
+| Exit code | 0 |
 
 Үндсэн тестийн ажиллуулалтаар 20 хүсэлт гүйцэтгэж,
 21 assertion шалгасан бөгөөд амжилтгүй assertion гараагүй.
@@ -319,25 +316,25 @@ echo "exit=$status" | tee -a results/newman-fail.txt
 - Exit code: `1`
 
 Бодит үр дүн:
-┌─────────────────────────┬─────────────────┬─────────────────┐
-│                         │        executed │          failed │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│              iterations │               1 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│                requests │              20 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│            test-scripts │              11 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│      prerequest-scripts │               0 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│              assertions │              23 │               1 │
-├─────────────────────────┴─────────────────┴─────────────────┤
-│ total run duration: 316ms                                   │
-├─────────────────────────────────────────────────────────────┤
-│ total data received: 478B (approx)                          │
-├─────────────────────────────────────────────────────────────┤
-│ average response time: 3ms [min: 1ms, max: 23ms, s.d.: 4ms] │
-└─────────────────────────────────────────────────────────────┘
+
+| Үзүүлэлт | Үр дүн |
+|---|---:|
+| Iterations executed | 1 |
+| Failed iterations | 0 |
+| Requests executed | 20 |
+| Failed requests | 0 |
+| Test scripts executed | 11 |
+| Failed test scripts | 0 |
+| Prerequest scripts executed | 0 |
+| Failed prerequest scripts | 0 |
+| Assertions executed | 23 |
+| Failed assertions | 1 |
+| Total run duration | 316 ms |
+| Total data received | 478 B |
+| Average response time | 3 ms |
+| Minimum response time | 1 ms |
+| Maximum response time | 23 ms |
+| Standard deviation | 4 ms |
 
 Newman-ийн алдааны мэдээлэлд `expected response to have status code 200 but got 201` гэж гарсан. Энэ нь API амжилттай бүртгэлийн зөв хариуг буцаасан боловч тестийн oracle буруу байсан тул assertion унасныг харуулж байна.
 
@@ -356,23 +353,21 @@ echo "exit=$status" | tee -a results/newman-down.txt
 ```
 
 Бодит үр дүн:
-┌─────────────────────────┬──────────┬──────────┐
-│                         │ executed │   failed │
-├─────────────────────────┼──────────┼──────────┤
-│              iterations │        1 │        0 │
-├─────────────────────────┼──────────┼──────────┤
-│                requests │       20 │       20 │
-├─────────────────────────┼──────────┼──────────┤
-│            test-scripts │       11 │        0 │
-├─────────────────────────┼──────────┼──────────┤
-│      prerequest-scripts │        0 │        0 │
-├─────────────────────────┼──────────┼──────────┤
-│              assertions │       23 │       23 │
-├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 283ms                     │
-├───────────────────────────────────────────────┤
-│ total data received: 0B (approx)              │
-└───────────────────────────────────────────────┘
+
+| Үзүүлэлт | Үр дүн |
+|---|---:|
+| Iterations executed | 1 |
+| Failed iterations | 0 |
+| Requests executed | 20 |
+| Failed requests | 20 |
+| Test scripts executed | 11 |
+| Failed test scripts | 0 |
+| Prerequest scripts executed | 0 |
+| Failed prerequest scripts | 0 |
+| Assertions executed | 23 |
+| Failed assertions | 23 |
+| Total run duration | 283 ms |
+| Total data received | 0 B |
 
 Энэ туршилтаар API сервер ажиллахгүй байсан тул нийт 20 хүсэлт бүгд холболтын алдаатай дууссан. Newman-ийн тайланд HTTP статус код шалгах болон JSON хариу унших шалгалтууд мөн амжилтгүй болсон. Учир нь серверээс бодит HTTP хариу ирээгүй бөгөөд JSON хариуг унших боломжгүй байсан.
 
