@@ -1,0 +1,8 @@
+From: Active, Frozen, Missing
+To: Active, Missing, SameAsFrom
+Amount: Normal, Zero, Negative, OverBalance, OverLimit
+Currency: Same, Different
+
+IF [From] = "Missing" THEN [Amount] = "Normal";
+IF [To] = "Missing" THEN [Amount] = "Normal";
+IF [Currency] = "Different" THEN [Amount] = "Normal";
