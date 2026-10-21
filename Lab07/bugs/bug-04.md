@@ -27,7 +27,8 @@
 
 ## Хавсралт
 
-- `screenshots/bug-04.png`
-- `screenshots/bug-04-1.png`
+- ![BUG-04 - Хайлт](../screenshots/bug-04.png)
+- ![BUG-04 - Хайлт](../screenshots/bug-04-1.png)
+
 
 **Олдсон аялал:** Хайлтын ажиллагаа болон том, жижиг үсгийн боловсруулалтыг шалгах exploratory tour.
