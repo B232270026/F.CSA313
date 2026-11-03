@@ -235,7 +235,7 @@ class CourseRegistrationServiceTest {
   // A6
   @Test
   void register_nullInputs_throwsIllegalArgumentExceptionAndNoInteractions() {
-    
+
     // studentId null үед IllegalArgumentException шидэх
     assertThrows(
         IllegalArgumentException.class,
@@ -259,5 +259,56 @@ class CourseRegistrationServiceTest {
 
     // Verify: EmailSender-тэй огт харилцаагүй
     verifyNoInteractions(emailSender);
+  }
+
+  // A7
+  @Test
+  void register_successfulRegistration_emailBodyContainsCourseCode() {
+
+    // Arrange: Идэвхтэй оюутан
+    Student student = new Student(
+        "S007",
+        "student@example.com",
+        true,
+        List.of("CS101")
+    );
+
+    when(repository.findStudent("S007"))
+        .thenReturn(student);
+
+    when(repository.courseExists("CS201"))
+        .thenReturn(true);
+
+    when(repository.prerequisites("CS201"))
+        .thenReturn(List.of("CS101"));
+
+    // Act: Бүртгүүлэх үйлдэл
+    String result = service.register("S007", "CS201");
+
+    // Assert: Бүртгэл амжилттай
+    assertEquals("OK", result);
+
+    // ArgumentCaptor: Имэйлийн body-г барьж авах
+    ArgumentCaptor<String> bodyCaptor =
+        ArgumentCaptor.forClass(String.class);
+
+    // Verify: EmailSender.send() нэг удаа дуудагдсан
+    verify(emailSender).send(
+        eq("student@example.com"),
+        eq("Бүртгэл баталгаажлаа"),
+        bodyCaptor.capture()
+    );
+
+    // Captured body-г авах
+    String capturedBody = bodyCaptor.getValue();
+
+    // Assert: Имэйлийн body дотор хичээлийн код байгаа
+    assertTrue(
+        capturedBody.contains("CS201"),
+        "И-мэйлийн body дотор CS201 хичээлийн код байх ёстой"
+    );
+
+    // Verify: Бүртгэл хадгалагдсан
+    verify(repository).saveRegistration("S007", "CS201");
   }
 }
