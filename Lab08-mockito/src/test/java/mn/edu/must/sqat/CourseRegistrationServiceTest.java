@@ -96,4 +96,42 @@ class CourseRegistrationServiceTest {
     // Verify: EmailSender-тэй өөр ямар ч харилцан үйлдэл хийгээгүй
     verifyNoInteractions(emailSender);
   }
+
+  // A3
+  @Test
+  void register_inactiveStudent_returnsErrorAndDoesNotSave() {
+
+    // Arrange: Идэвхгүй оюутан
+    Student student = new Student(
+        "S002",
+        "inactive@example.com",
+        false,
+        List.of("CS101")
+    );
+
+    when(repository.findStudent("S002"))
+        .thenReturn(student);
+
+    // Act: Бүртгүүлэх үйлдэл
+    String result = service.register("S002", "CS201");
+
+    // Assert: Идэвхгүй оюутны алдааны код
+    assertEquals("ERROR_INACTIVE_STUDENT", result);
+
+    // Verify: Оюутны мэдээллийг хайсан
+    verify(repository).findStudent("S002");
+
+    // Verify: Хичээл байгаа эсэхийг шалгаагүй
+    verify(repository, never()).courseExists(anyString());
+
+    // Verify: Урьдчилсан нөхцөл шалгаагүй
+    verify(repository, never()).prerequisites(anyString());
+
+    // Verify: Бүртгэл хадгалаагүй
+    verify(repository, never())
+        .saveRegistration(anyString(), anyString());
+
+    // Verify: EmailSender-тэй огт харилцаагүй
+    verifyNoInteractions(emailSender);
+  }
 }
