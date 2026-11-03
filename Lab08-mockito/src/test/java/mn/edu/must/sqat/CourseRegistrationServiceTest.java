@@ -134,4 +134,50 @@ class CourseRegistrationServiceTest {
     // Verify: EmailSender-тэй огт харилцаагүй
     verifyNoInteractions(emailSender);
   }
+
+  // A4
+  @Test
+  void register_missingPrerequisites_returnsErrorAndDoesNotSave() {
+
+    // Arrange: Идэвхтэй оюутан боловч шаардлагатай хичээл дутуу
+    Student student = new Student(
+        "S003",
+        "student@example.com",
+        true,
+        List.of("CS101")
+    );
+
+    when(repository.findStudent("S003"))
+        .thenReturn(student);
+
+    when(repository.courseExists("CS201"))
+        .thenReturn(true);
+
+    // CS201 хичээлд CS101 болон CS102 шаардлагатай
+    when(repository.prerequisites("CS201"))
+        .thenReturn(List.of("CS101", "CS102"));
+
+    // Act: Бүртгүүлэх үйлдэл
+    String result = service.register("S003", "CS201");
+
+    // Assert: Урьдчилсан нөхцөл дутуу алдааны код
+    assertEquals("ERROR_PREREQUISITES", result);
+
+    // Verify: Оюутныг хайсан
+    verify(repository).findStudent("S003");
+
+    // Verify: Хичээл байгаа эсэхийг шалгасан
+    verify(repository).courseExists("CS201");
+
+    // Verify: Урьдчилсан нөхцөлийг шалгасан
+    verify(repository).prerequisites("CS201");
+
+    // Verify: Бүртгэл хадгалаагүй
+    verify(repository, never())
+        .saveRegistration(anyString(), anyString());
+
+    // Verify: EmailSender-тэй огт харилцаагүй
+    verifyNoInteractions(emailSender);
+  }
+  
 }
