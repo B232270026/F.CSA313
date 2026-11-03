@@ -311,4 +311,71 @@ class CourseRegistrationServiceTest {
     // Verify: Бүртгэл хадгалагдсан
     verify(repository).saveRegistration("S007", "CS201");
   }
+
+  // A8
+  @ParameterizedTest(name = "A8 - {0}: expected {1}")
+  @CsvSource({
+      "NO_STUDENT, ERROR_NO_STUDENT",
+      "INACTIVE, ERROR_INACTIVE_STUDENT",
+      "PREREQUISITES, ERROR_PREREQUISITES"
+  })
+  void register_errorCases_returnsExpectedError(
+      String scenario,
+      String expectedResult) {
+
+    switch (scenario) {
+
+      case "NO_STUDENT" -> {
+        lenient().when(repository.findStudent("S008"))
+            .thenReturn(null);
+      }
+
+      case "INACTIVE" -> {
+        Student inactiveStudent = new Student(
+            "S008",
+            "student@example.com",
+            false,
+            List.of("CS101")
+        );
+
+        lenient().when(repository.findStudent("S008"))
+            .thenReturn(inactiveStudent);
+      }
+
+      case "PREREQUISITES" -> {
+        Student student = new Student(
+            "S008",
+            "student@example.com",
+            true,
+            List.of("CS101")
+        );
+
+        lenient().when(repository.findStudent("S008"))
+            .thenReturn(student);
+
+        lenient().when(repository.courseExists("CS201"))
+            .thenReturn(true);
+
+        lenient().when(repository.prerequisites("CS201"))
+            .thenReturn(List.of("CS101", "CS102"));
+      }
+
+      default -> throw new IllegalArgumentException(
+          "Unknown scenario: " + scenario
+      );
+    }
+
+    // Act
+    String result = service.register("S008", "CS201");
+
+    // Assert
+    assertEquals(expectedResult, result);
+
+    // Verify: Бүртгэл хадгалагдаагүй
+    verify(repository, never())
+        .saveRegistration(anyString(), anyString());
+
+    // Verify: EmailSender-тэй огт харилцаагүй
+    verifyNoInteractions(emailSender);
+  }
 }
