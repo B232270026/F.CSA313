@@ -179,5 +179,57 @@ class CourseRegistrationServiceTest {
     // Verify: EmailSender-тэй огт харилцаагүй
     verifyNoInteractions(emailSender);
   }
-  
+
+  // A5
+  @Test
+  void register_emailSenderThrowsException_registrationStillSucceeds() {
+
+    // Arrange: Идэвхтэй оюутан
+    Student student = new Student(
+        "S005",
+        "student@example.com",
+        true,
+        List.of("CS101")
+    );
+
+    when(repository.findStudent("S005"))
+        .thenReturn(student);
+
+    when(repository.courseExists("CS201"))
+        .thenReturn(true);
+
+    when(repository.prerequisites("CS201"))
+        .thenReturn(List.of("CS101"));
+
+    // EmailSender exception шиднэ
+    doThrow(new RuntimeException("Email sending failed"))
+        .when(emailSender)
+        .send(anyString(), anyString(), anyString());
+
+    // Act: Бүртгүүлэх үйлдэл
+    String result = service.register("S005", "CS201");
+
+    // Assert: Email exception гарсан ч бүртгэл амжилттай
+    assertEquals("OK", result);
+
+    // Verify: Оюутныг хайсан
+    verify(repository).findStudent("S005");
+
+    // Verify: Хичээл байгаа эсэхийг шалгасан
+    verify(repository).courseExists("CS201");
+
+    // Verify: Урьдчилсан нөхцөлийг шалгасан
+    verify(repository).prerequisites("CS201");
+
+    // Verify: Бүртгэл хадгалсан
+    verify(repository).saveRegistration("S005", "CS201");
+
+    // Verify: Имэйл илгээх оролдлого хийсэн
+    verify(emailSender).send(
+        eq("student@example.com"),
+        eq("Бүртгэл баталгаажлаа"),
+        contains("CS201")
+    );
+  }
+
 }
