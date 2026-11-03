@@ -63,4 +63,37 @@ class CourseRegistrationServiceTest {
         contains("CS201")
     );
   }
+
+  // A2: Байхгүй оюутны бүртгэл
+  @Test
+  void register_studentNotFound_returnsErrorAndDoesNotSaveOrSendEmail() {
+
+    // Arrange: Оюутан олдохгүй
+    when(repository.findStudent("S999"))
+        .thenReturn(null);
+
+    // Act: Бүртгүүлэх үйлдэл
+    String result = service.register("S999", "CS201");
+
+    // Assert: Зөв алдааны үр дүн буцаасан эсэх
+    assertEquals("ERROR_NO_STUDENT", result);
+
+    // Verify: Оюутны мэдээллийг хайсан эсэх
+    verify(repository).findStudent("S999");
+
+    // Verify: Оюутан олдоогүй тул дараагийн шалгалтууд хийгдээгүй
+    verify(repository, never()).courseExists(anyString());
+    verify(repository, never()).prerequisites(anyString());
+
+    // Verify: Бүртгэл хадгалаагүй
+    verify(repository, never())
+        .saveRegistration(anyString(), anyString());
+
+    // Verify: Имэйл илгээгээгүй
+    verify(emailSender, never())
+        .send(anyString(), anyString(), anyString());
+
+    // Verify: EmailSender-тэй өөр ямар ч харилцан үйлдэл хийгээгүй
+    verifyNoInteractions(emailSender);
+  }
 }
