@@ -232,4 +232,32 @@ class CourseRegistrationServiceTest {
     );
   }
 
+  // A6
+  @Test
+  void register_nullInputs_throwsIllegalArgumentExceptionAndNoInteractions() {
+    
+    // studentId null үед IllegalArgumentException шидэх
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> service.register(null, "CS201")
+    );
+
+    // courseId null үед IllegalArgumentException шидэх
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> service.register("S006", null)
+    );
+
+    // Хоёр оролт хоёулаа null үед IllegalArgumentException шидэх
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> service.register(null, null)
+    );
+
+    // Verify: Repository-тэй огт харилцаагүй
+    verifyNoInteractions(repository);
+
+    // Verify: EmailSender-тэй огт харилцаагүй
+    verifyNoInteractions(emailSender);
+  }
 }
