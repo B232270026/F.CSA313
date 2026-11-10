@@ -131,4 +131,31 @@ class ScholarshipCalculatorTest {
     assertThrows(IllegalArgumentException.class, () -> calculator.scholarship(3.9, -1, false));
   }
 
+  // ===== C хэсэг: Loop Boundary Tests =====
+  // GPA function - 0 / 1 / 2+ iterations
+
+//  //0 iteration - Empty array
+//  @Test
+//  void shouldThrowExceptionForEmptyScores() {
+//    assertThrows(IllegalArgumentException.class, () -> calculator.gpa(new double[]{}));
+//  }
+//
+//  //0 iteration - Null array
+//  @Test
+//  void shouldThrowExceptionForNullScores() {
+//    assertThrows(IllegalArgumentException.class, () -> calculator.gpa(null));
+//  }
+
+  //1 iteration - Single score
+  @Test
+  void shouldCalculateGpaForOneScore() {
+    assertEquals(4.0, calculator.gpa(new double[]{95}), 0.001);
+  }
+
+  //2+ iterations - Multiple scores
+  @Test
+  void shouldCalculateGpaForMultipleScores() {
+    assertEquals(2.5, calculator.gpa(new double[]{95, 85, 75, 65}), 0.001);
+  }
+
 }
