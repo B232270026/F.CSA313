@@ -158,4 +158,41 @@ class ScholarshipCalculatorTest {
     assertEquals(2.5, calculator.gpa(new double[]{95, 85, 75, 65}), 0.001);
   }
 
+  // ===== D хэсэг: letterGrade() зааг утгын тестүүд =====
+
+  @Test
+  void shouldReturnGradeDFor60() {
+    assertEquals("D", calculator.letterGrade(60));
+  }
+
+  @Test
+  void shouldReturnGradeFFor5999() {
+    assertEquals("F", calculator.letterGrade(59.99));
+  }
+
+  @Test
+  void shouldReturnGradeDFor6999() {
+    assertEquals("D", calculator.letterGrade(69.99));
+  }
+
+  @Test
+  void shouldReturnGradeFForZero() {
+    assertEquals("F", calculator.letterGrade(0));
+  }
+
+  @Test
+  void shouldReturnGradeAFor100() {
+    assertEquals("A", calculator.letterGrade(100));
+  }
+
+  @Test
+  void shouldReturnGradeBFor8999() {
+    assertEquals("B", calculator.letterGrade(89.99));
+  }
+
+  @Test
+  void shouldReturnGradeAFor90() {
+    assertEquals("A", calculator.letterGrade(90));
+  }
+
 }
