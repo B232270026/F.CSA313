@@ -1,0 +1,5 @@
+[1mApache Maven 3.9.9[m
+Maven home: /usr/share/maven
+Java version: 21.0.12.1, vendor: Debian, runtime: /usr/lib/jvm/java-21-openjdk-amd64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "6.12.111+deb13-amd64", arch: "amd64", family: "unix"
