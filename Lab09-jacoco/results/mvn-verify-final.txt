@@ -29,7 +29,7 @@
 [[1;34mINFO[m]  T E S T S
 [[1;34mINFO[m] -------------------------------------------------------
 [[1;34mINFO[m] Running mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m34[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.077 s -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m34[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 s -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] Results:
 [[1;34mINFO[m] 
@@ -50,6 +50,6 @@
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.849 s
-[[1;34mINFO[m] Finished at: 2026-11-15T04:41:53+08:00
+[[1;34mINFO[m] Total time:  1.760 s
+[[1;34mINFO[m] Finished at: 2026-11-15T05:12:47+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
