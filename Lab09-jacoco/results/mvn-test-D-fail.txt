@@ -18,7 +18,8 @@
 [[1;34mINFO[m] skip non existing resourceDirectory /home/benhjin/Documents/F.CSA313/F.CSA313/Lab09-jacoco/src/test/resources
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mcompiler:3.13.0:testCompile[m [1m(default-testCompile)[m @ [36mlab09-jacoco[0;1m ---[m
-[[1;34mINFO[m] Nothing to compile - all classes are up to date.
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug release 17] to target/test-classes
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32msurefire:3.2.5:test[m [1m(default-test)[m @ [36mlab09-jacoco[0;1m ---[m
 [[1;34mINFO[m] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -27,7 +28,7 @@
 [[1;34mINFO[m]  T E S T S
 [[1;34mINFO[m] -------------------------------------------------------
 [[1;34mINFO[m] Running mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
-[[1;31mERROR[m] [1;31mTests [0;1mrun: [0;1m34[m, [1;31mFailures: [0;1;31m1[m, Errors: 0, Skipped: 0, Time elapsed: 0.089 s[1;31m <<< FAILURE![m -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
+[[1;31mERROR[m] [1;31mTests [0;1mrun: [0;1m34[m, [1;31mFailures: [0;1;31m1[m, Errors: 0, Skipped: 0, Time elapsed: 0.101 s[1;31m <<< FAILURE![m -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
 [[1;31mERROR[m] mn.edu.must.sqat.ScholarshipCalculatorTest.shouldReturnGradeDFor60 -- Time elapsed: 0.008 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <D> but was: <F>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
@@ -52,8 +53,8 @@ org.opentest4j.AssertionFailedError: expected: <D> but was: <F>
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;31mBUILD FAILURE[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.251 s
-[[1;34mINFO[m] Finished at: 2026-11-15T04:41:21+08:00
+[[1;34mINFO[m] Total time:  1.415 s
+[[1;34mINFO[m] Finished at: 2026-11-15T05:12:26+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-surefire-plugin:3.2.5:test[m [1m(default-test)[m on project [36mlab09-jacoco[m: [1;31mThere are test failures.[m
 [[1;31mERROR[m] [1;31m[m
