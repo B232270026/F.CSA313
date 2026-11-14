@@ -29,11 +29,11 @@
 [[1;34mINFO[m]  T E S T S
 [[1;34mINFO[m] -------------------------------------------------------
 [[1;34mINFO[m] Running mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m32[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.074 s -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m34[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.077 s -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] Results:
 [[1;34mINFO[m] 
-[[1;34mINFO[m] [1;32mTests run: 32, Failures: 0, Errors: 0, Skipped: 0[m
+[[1;34mINFO[m] [1;32mTests run: 34, Failures: 0, Errors: 0, Skipped: 0[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mjar:3.1.2:jar[m [1m(default-jar)[m @ [36mlab09-jacoco[0;1m ---[m
@@ -42,9 +42,14 @@
 [[1;34mINFO[m] [1m--- [0;32mjacoco:0.8.12:report[m [1m(report)[m @ [36mlab09-jacoco[0;1m ---[m
 [[1;34mINFO[m] Loading execution data file /home/benhjin/Documents/F.CSA313/F.CSA313/Lab09-jacoco/target/jacoco.exec
 [[1;34mINFO[m] Analyzed bundle 'lab09-jacoco' with 1 classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mjacoco:0.8.12:check[m [1m(check-coverage)[m @ [36mlab09-jacoco[0;1m ---[m
+[[1;34mINFO[m] Loading execution data file /home/benhjin/Documents/F.CSA313/F.CSA313/Lab09-jacoco/target/jacoco.exec
+[[1;34mINFO[m] Analyzed bundle 'lab09-jacoco' with 1 classes
+[[1;34mINFO[m] All coverage checks have been met.
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.689 s
-[[1;34mINFO[m] Finished at: 2026-11-11T00:27:36+08:00
+[[1;34mINFO[m] Total time:  1.849 s
+[[1;34mINFO[m] Finished at: 2026-11-15T04:41:53+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m

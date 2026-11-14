@@ -27,8 +27,8 @@
 [[1;34mINFO[m]  T E S T S
 [[1;34mINFO[m] -------------------------------------------------------
 [[1;34mINFO[m] Running mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
-[[1;31mERROR[m] [1;31mTests [0;1mrun: [0;1m32[m, [1;31mFailures: [0;1;31m1[m, Errors: 0, Skipped: 0, Time elapsed: 0.084 s[1;31m <<< FAILURE![m -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
-[[1;31mERROR[m] mn.edu.must.sqat.ScholarshipCalculatorTest.shouldReturnGradeDFor60 -- Time elapsed: 0.006 s <<< FAILURE!
+[[1;31mERROR[m] [1;31mTests [0;1mrun: [0;1m34[m, [1;31mFailures: [0;1;31m1[m, Errors: 0, Skipped: 0, Time elapsed: 0.089 s[1;31m <<< FAILURE![m -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
+[[1;31mERROR[m] mn.edu.must.sqat.ScholarshipCalculatorTest.shouldReturnGradeDFor60 -- Time elapsed: 0.008 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <D> but was: <F>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -36,7 +36,7 @@ org.opentest4j.AssertionFailedError: expected: <D> but was: <F>
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
-	at mn.edu.must.sqat.ScholarshipCalculatorTest.shouldReturnGradeDFor60(ScholarshipCalculatorTest.java:165)
+	at mn.edu.must.sqat.ScholarshipCalculatorTest.shouldReturnGradeDFor60(ScholarshipCalculatorTest.java:175)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
@@ -45,15 +45,15 @@ org.opentest4j.AssertionFailedError: expected: <D> but was: <F>
 [[1;34mINFO[m] Results:
 [[1;34mINFO[m] 
 [[1;31mERROR[m] [1;31mFailures: [m
-[[1;31mERROR[m] [1;31m  ScholarshipCalculatorTest.shouldReturnGradeDFor60:165 expected: <D> but was: <F>[m
+[[1;31mERROR[m] [1;31m  ScholarshipCalculatorTest.shouldReturnGradeDFor60:175 expected: <D> but was: <F>[m
 [[1;34mINFO[m] 
-[[1;31mERROR[m] [1;31mTests run: 32, Failures: 1, Errors: 0, Skipped: 0[m
+[[1;31mERROR[m] [1;31mTests run: 34, Failures: 1, Errors: 0, Skipped: 0[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;31mBUILD FAILURE[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.208 s
-[[1;34mINFO[m] Finished at: 2026-11-11T00:25:46+08:00
+[[1;34mINFO[m] Total time:  1.251 s
+[[1;34mINFO[m] Finished at: 2026-11-15T04:41:21+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-surefire-plugin:3.2.5:test[m [1m(default-test)[m on project [36mlab09-jacoco[m: [1;31mThere are test failures.[m
 [[1;31mERROR[m] [1;31m[m
