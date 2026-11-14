@@ -68,6 +68,16 @@ class ScholarshipCalculatorTest {
   void shouldHandleDefaultSwitchBranchForGradeF() {
     assertEquals(0.0, calculator.gpa(new double[]{50}), 0.001);
   }
+  
+    @Test
+  void shouldCalculateGpaForGradeC() {
+    assertEquals(2.0, calculator.gpa(new double[]{75}), 0.001);
+  }
+
+  @Test
+  void shouldCalculateGpaForGradeD() {
+    assertEquals(1.0, calculator.gpa(new double[]{65}), 0.001);
+  }
 
   @Test
   void shouldThrowExceptionForNullScores() {
