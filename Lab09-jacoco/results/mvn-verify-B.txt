@@ -27,7 +27,7 @@
 [[1;34mINFO[m]  T E S T S
 [[1;34mINFO[m] -------------------------------------------------------
 [[1;34mINFO[m] Running mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m25[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 s -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m25[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.065 s -- in mn.edu.must.sqat.[1mScholarshipCalculatorTest[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] Results:
 [[1;34mINFO[m] 
@@ -35,7 +35,6 @@
 [[1;34mINFO[m] 
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mjar:3.1.2:jar[m [1m(default-jar)[m @ [36mlab09-jacoco[0;1m ---[m
-[[1;34mINFO[m] Building jar: /home/benhjin/Documents/F.CSA313/F.CSA313/Lab09-jacoco/target/lab09-jacoco-1.0.jar
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mjacoco:0.8.12:report[m [1m(report)[m @ [36mlab09-jacoco[0;1m ---[m
 [[1;34mINFO[m] Loading execution data file /home/benhjin/Documents/F.CSA313/F.CSA313/Lab09-jacoco/target/jacoco.exec
@@ -48,6 +47,6 @@
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  2.730 s
-[[1;34mINFO[m] Finished at: 2026-11-15T02:46:01+08:00
+[[1;34mINFO[m] Total time:  1.332 s
+[[1;34mINFO[m] Finished at: 2026-11-15T05:08:15+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
