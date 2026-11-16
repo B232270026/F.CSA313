@@ -34,7 +34,7 @@ class ScholarshipCalculatorTest {
   void shouldReturn70PercentScholarship() {
     assertEquals(70, calculator.scholarship(3.5, 12, false));
   }
-  
+
   // ===== B хэсэг: letterGrade() Branch Tests =====
 
   @Test
@@ -139,6 +139,34 @@ class ScholarshipCalculatorTest {
   @Test
   void shouldThrowExceptionForNegativeCredits() {
     assertThrows(IllegalArgumentException.class, () -> calculator.scholarship(3.9, -1, false));
+  }
+
+  // ===== C хэсэг: Loop Boundary Tests =====
+  // GPA function - 0 / 1 / 2+ iterations
+
+  // 0 iteration - Empty array
+  @Test
+  void shouldHandleZeroIterationWithEmptyArray() {
+    assertThrows(IllegalArgumentException.class, () -> calculator.gpa(new double[]{}));
+  }
+
+  // 0 iteration - Null input
+  @Test
+  void shouldHandleZeroIterationWithNullInput() {
+    assertThrows(IllegalArgumentException.class, () -> calculator.gpa(null)
+    );
+  }
+
+  //1 iteration - Single score
+  @Test
+  void shouldCalculateGpaForOneScore() {
+    assertEquals(4.0, calculator.gpa(new double[]{95}), 0.001);
+  }
+
+  //2+ iterations - Multiple scores
+  @Test
+  void shouldCalculateGpaForMultipleScores() {
+    assertEquals(2.5, calculator.gpa(new double[]{95, 85, 75, 65}), 0.001);
   }
 
 }
