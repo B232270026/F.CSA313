@@ -3,7 +3,7 @@
 
 **Хичээл:** F.CSA313 — Программ хангамжийн чанарын баталгаа ба тест  
 **Лабораторийн ажил:** Lab 10 — Data Flow Testing  
-**Оюутны нэр:** Энхжин Батболд  
+**Оюутны нэр:** Б.Энхжин 
 **Оюутны код:** b232270026  
 **Төслийн нэр:** lab10-dataflow
 
@@ -660,14 +660,15 @@ BUILD SUCCESS
 
 ```csv
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-lab10-dataflow,mn.edu.must.sqat,DataFlowTargets,3,82,0,16,1,24,1,10,1,2
+lab10-dataflow,mn.edu.must.sqat,DataFlowTargets,3,78,0,16,1,23,1,10,1,2
+
 ```
 
-| Үзүүлэлт | Missed | Covered | Хамралт |
+| Metric | Missed | Covered | Coverage |
 |---|---:|---:|---:|
-| Instruction | 3 | 82 | 96.47% |
+| Instruction | 3 | 78 | 96.30% |
 | Branch | 0 | 16 | 100% |
-| Line | 1 | 24 | 96.00% |
+| Line | 1 | 23 | 95.83% |
 | Complexity | 1 | 10 | 90.91% |
 | Method | 1 | 2 | 66.67% |
 
