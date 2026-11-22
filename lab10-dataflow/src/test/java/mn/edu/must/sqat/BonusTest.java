@@ -114,4 +114,19 @@ class BonusTest {
 
         assertEquals(8, result);
     }
+
+    // =====================================================
+    // T8
+    // =====================================================
+
+    @Test
+    @DisplayName("T8: Verify total attendance does not replace the longest streak")
+    void bonus_shortStreakAfterMultipleAttendance_doesNotEarnStreakBonus() {
+      int[] attendance = {1, 1, 0, 1, 1, 1};
+      int threshold = 5;
+
+      int result = DataFlowTargets.bonus(attendance, threshold);
+
+      assertEquals(5, result);
+    }
 }
