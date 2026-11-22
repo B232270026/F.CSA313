@@ -407,12 +407,12 @@ JaCoCo ашиглан ALL-DEFS болон эцсийн тестийн хамра
 ### B5.1. ALL-DEFS болон эцсийн үр дүнгийн харьцуулалт
 
 | Үзүүлэлт | ALL-DEFS Missed | ALL-DEFS Covered | Эцсийн Missed | Эцсийн Covered |
-|---|---:|---:|---:|---:|
-| Instruction | 8 | 73 | 3 | 82 |
-| Branch | 2 | 14 | 0 | 16 |
-| Line | 2 | 22 | 1 | 24 |
-| Complexity | 3 | 8 | 1 | 10 |
-| Method | 1 | 2 | 1 | 2 |
+|---|---:|---:|---:|---------------:|
+| Instruction | 8 | 73 | 3 |             78 |
+| Branch | 2 | 14 | 0 |             16 |
+| Line | 2 | 22 | 1 |             23 |
+| Complexity | 3 | 8 | 1 |             10 |
+| Method | 1 | 2 | 1 |              2 |
 
 ### B5.2. Branch coverage
 
@@ -636,7 +636,7 @@ git restore src/main/java/mn/edu/must/sqat/DataFlowTargets.java
 Эцсийн эх код болон тестүүд дээр дараах командыг ажиллуулсан:
 
 ```bash
-mvn verify
+mvn clean verify
 ```
 
 `mvn-verify-final.txt` файлын үр дүн:
