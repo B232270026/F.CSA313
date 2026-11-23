@@ -34,3 +34,26 @@ test('Амжилттай нэвтрэх', async ({ page }) => {
   // Системээс гарсныг шалгах
   await expect(page).toHaveURL('https://www.saucedemo.com/');
 });
+
+// Тест 2: Амжилтгүй нэвтрэх
+test('Буруу нууц үгээр нэвтрэх', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+
+  // Зөв хэрэглэгчийн нэр, буруу нууц үг оруулах
+  await page.getByPlaceholder('Username').fill('standard_user');
+  await page.getByPlaceholder('Password').fill('wrong_sauce');
+
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  // data-test атрибутаар алдааны мэдээлэл олох
+  const errorMessage = page.locator('[data-test="error"]');
+
+  // Алдааны мэдээлэл харагдаж буй эсэхийг шалгах
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toContainText(
+      'Username and password do not match'
+  );
+
+  // Нэвтрэх хуудас дээр хэвээр байгааг шалгах
+  await expect(page).toHaveURL('https://www.saucedemo.com/');
+});
