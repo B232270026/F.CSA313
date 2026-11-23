@@ -57,3 +57,29 @@ test('Буруу нууц үгээр нэвтрэх', async ({ page }) => {
   // Нэвтрэх хуудас дээр хэвээр байгааг шалгах
   await expect(page).toHaveURL('https://www.saucedemo.com/');
 });
+
+// Тест 3: Барааг сагсанд нэмэх (амжилттай нэвтэрч орсны дараа)
+test('Барааг сагсанд нэмэх', async ({ page }) => {
+  await login(page);
+
+  // Бүтээгдэхүүний хуудас нээгдсэнийг шалгах
+  await expect(page.getByText('Products')).toBeVisible();
+
+  // Sauce Labs Backpack барааг сагсанд нэмэх
+  await page.getByRole('button', { name: 'Add to cart' }).first().click();
+
+  // Сагсны тоо 1 болсон эсэхийг шалгах
+  await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+
+  // Сагс руу орох
+  await page.locator('.shopping_cart_link').click();
+
+  // Сагсанд зөв бараа нэмэгдсэн эсэхийг шалгах
+  await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
+
+  // Системээс гарах
+  await logout(page);
+
+  // Нэвтрэх хуудас дээр очсон эсэхийг шалгах
+  await expect(page).toHaveURL('https://www.saucedemo.com/');
+});
