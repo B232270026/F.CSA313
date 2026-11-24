@@ -1,0 +1,18 @@
+
+Running 9 tests using 6 workers
+
+[1/9] [firefox] › tests/mytest.spec.ts:25:1 › Амжилттай нэвтрэх
+[2/9] [chromium] › tests/mytest.spec.ts:62:1 › Барааг сагсанд нэмэх
+[3/9] [chromium] › tests/mytest.spec.ts:25:1 › Амжилттай нэвтрэх
+[4/9] [firefox] › tests/mytest.spec.ts:39:1 › Буруу нууц үгээр нэвтрэх
+[5/9] [firefox] › tests/mytest.spec.ts:62:1 › Барааг сагсанд нэмэх
+[6/9] [chromium] › tests/mytest.spec.ts:39:1 › Буруу нууц үгээр нэвтрэх
+[7/9] [webkit] › tests/mytest.spec.ts:25:1 › Амжилттай нэвтрэх
+[8/9] [webkit] › tests/mytest.spec.ts:62:1 › Барааг сагсанд нэмэх
+[9/9] [webkit] › tests/mytest.spec.ts:39:1 › Буруу нууц үгээр нэвтрэх
+  9 passed (5.8s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m
