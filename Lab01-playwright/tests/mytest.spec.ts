@@ -27,7 +27,8 @@ test('Амжилттай нэвтрэх', async ({ page }) => {
 
   // Бүтээгдэхүүний хуудас нээгдсэн эсэхийг шалгах
   await expect(page).toHaveURL(/inventory.html/);
-  await expect(page.getByText('Products')).toBeVisible();
+  // await expect(page.getByText('Products')).toBeVisible();
+  await expect(page.getByText('Wrong Products')).toBeVisible();
 
   await logout(page);
 
@@ -51,7 +52,7 @@ test('Буруу нууц үгээр нэвтрэх', async ({ page }) => {
   // Алдааны мэдээлэл харагдаж буй эсэхийг шалгах
   await expect(errorMessage).toBeVisible();
   await expect(errorMessage).toContainText(
-      'Username and password do not match'
+      'Username and password do not match any user in this service'
   );
 
   // Нэвтрэх хуудас дээр хэвээр байгааг шалгах
