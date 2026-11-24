@@ -1,0 +1,42 @@
+
+Running 1 test using 1 worker
+
+[1/1] [chromium] › tests/mytest.spec.ts:25:1 › Амжилттай нэвтрэх
+  1) [chromium] › tests/mytest.spec.ts:25:1 › Амжилттай нэвтрэх ────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Wrong Products')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Wrong Products') with timeout 5000ms
+      - waiting for getByText('Wrong Products')
+
+
+      28 |   // Бүтээгдэхүүний хуудас нээгдсэн эсэхийг шалгах
+      29 |   await expect(page).toHaveURL(/inventory.html/);
+    > 30 |   await expect(page.getByText('Wrong Products')).toBeVisible();
+         |                                                  ^
+      31 |
+      32 |   await logout(page);
+      33 |
+        at /home/benhjin/Documents/F.CSA313/F.CSA313/Lab01-playwright/tests/mytest.spec.ts:30:50
+
+    Error Context: test-results/mytest-Амжилттай-нэвтрэх-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/mytest-Амжилттай-нэвтрэх-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/mytest-Амжилттай-нэвтрэх-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [chromium] › tests/mytest.spec.ts:25:1 › Амжилттай нэвтрэх ─────────────────────────────────────
+
+[36m  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.[39m
