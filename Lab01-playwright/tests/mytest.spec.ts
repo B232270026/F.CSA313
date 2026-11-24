@@ -27,8 +27,7 @@ test('Амжилттай нэвтрэх', async ({ page }) => {
 
   // Бүтээгдэхүүний хуудас нээгдсэн эсэхийг шалгах
   await expect(page).toHaveURL(/inventory.html/);
-  // await expect(page.getByText('Products')).toBeVisible();
-  await expect(page.getByText('Wrong Products')).toBeVisible();
+  await expect(page.getByText('Products')).toBeVisible();
 
   await logout(page);
 
