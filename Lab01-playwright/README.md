@@ -276,15 +276,6 @@ Running 9 tests using 6 workers
 Терминалын гаралтыг `results/final-test-results.txt` файлд хадгалсан.
 
 
-[//]: # (HTML тайланг дараах командаар нээж болно.)
-
-[//]: # ()
-[//]: # (```bash)
-
-[//]: # (npx playwright show-report)
-
-[//]: # (```)
-
 ## 10. Playwright ба Selenium-ийн харьцуулалт
 
 Playwright болон Selenium нь веб системийн автомат тест хийхэд ашиглагддаг framework-ууд юм. Playwright нь Chromium, Firefox, WebKit browser-уудыг шууд дэмждэг бол Selenium нь WebDriver протокол ашиглан олон төрлийн browser-той ажилладаг. Playwright нь auto-waiting механизмтай тул элемент үйлдэл хийхэд бэлэн болохыг автоматаар хүлээдэг. Selenium-д ийм нөхцөлд explicit wait ашиглах шаардлага илүү түгээмэл байдаг. Playwright нь Trace Viewer, Codegen зэрэг тест боловсруулах болон алдаа шинжлэхэд туслах хэрэгслүүдтэй. Харин Selenium нь олон хэлний binding болон өргөн хүрээний экосистемтэй. Playwright нь browser automation болон end-to-end тестийг хурдан боловсруулахад тохиромжтой. Selenium нь олон төрлийн хэл, browser, тестийн орчинтой уялдуулах шаардлагатай үед давуу талтай.
